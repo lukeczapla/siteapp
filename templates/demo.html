@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+    <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.9/angular-route.min.js"></script>
+	<script src="/static/app.js"></script>
+	<link rel="stylesheet" href="/static/flow.css" />
+	<link rel="stylesheet" href="/static/w3.css" />
+    </head>
+
+
+    <body ng-app="myApp">
+
+	<div class="box header">
+		<a href="/demo#/">Link</a>
+		<a href="/demo#/about">About</a>
+	</div>
+
+	<div class="box content">
+		<div ng-view></div>
+	</div>
+    
+    </body>
+
+</html>
+

@@ -1,0 +1,8 @@
+{
+  "name": "Peer Tutoring Site",
+  "description": "Deployed to Heroku.",
+  "image": "heroku/python",
+  "repository": "https://git.heroku.com/sitegwc.git",
+  "keywords": ["python", "django", "flask" ],
+  "addons": [ "heroku-postgresql" ]
+}

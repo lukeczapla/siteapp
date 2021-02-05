@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Frisch Class Tutoring Web Site</title>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+</head>
+
+<style type="text/css">
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+	background-color: lightgoldenrodyellow;
+	padding: 5px;
+}
+.tab { margin-left: 7px; }
+html, body { margin: 0; width: 100%; height: 100%; }
+</style>
+
+<body>
+
+<!---
+<table cellspacing="1" cellpadding="2" border="0" 
+ bgcolor="white" id="shell" height="800" width="800">   -->
+<table bgcolor="red" id="entirePage">
+	<tr>  <!-- TITLE -->
+    	<td colspan="2" align="center">   <!--  height="40px" -->
+        	<h2><i>The Frisch School - Class Questions & Answers</i></h2>
+    	</td>
+	</tr>
+	<tr>  <!-- New Question Button and Search text and button  -->
+        <td colspan="2">
+			<input type="submit" value="   Post a New Question   " />
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+			<input type="text"   id="searchFilter" size="100"/>
+			<button onclick="submitSearch()">Search</button>
+        </td>
+
+	</tr>
+	<tr>
+		<!--  FILTER COLUMN -->
+		<td width="120px" valign="top" rowspan="2">  
+		<!-- style="border: 2px solid black; padding-left:5px;"> style="padding-left:10px">   -->
+			<form name="filters" id="filters">
+				<!-- <b><i>Grades</i></b><br>   -->
+				<fieldset>
+				<legend><i>Grades</i></legend>
+				<input type="checkbox" id="9"  name="grade_9"><label for="9">9</label><br>
+				<input type="checkbox" id="10" name="grade_10"><label for="10">10</label><br>
+				<input type="checkbox" id="11" name="grade_11"><label for="11">11</label><br>
+				<input type="checkbox" id="12" name="grade_12"><label for="12">12</label><br>
+				</fieldset>
+				<br>
+				<!-- <b><i>Subjects</i></b><br>   -->
+
+				<fieldset>
+				<legend><i>Subjects</i></legend>
+				<input type="checkbox" id="Math"     name="sub_math"><label for="Math">Math</label><br>
+				<input type="checkbox" id="English"  name="sub_english"><label for="English">English</label><br>
+				<input type="checkbox" id="History"  name="sub_history"><label for="History">History</label><br>
+				<input type="checkbox" id="Comp Sci" name="sub_compSci"><label for="Comp Sci">Comp Sci</label><br>
+				<input type="checkbox" id="TEST_SUBJECT" name="sub_test">No_select<br>
+				<input type="checkbox" id="Physics"  name="sub_physics"><label for="Physics">Physics</label><br>
+				<input type="checkbox" id="Biology"  name="sub_biology"><label for="Biology">Biology</label><br>
+				</fieldset>
+
+				<br>
+				<!--  <b><i>Tracks</i></b><br>   -->
+				<fieldset>
+				<legend><i>Tracks</i></legend>
+				<input type="checkbox" id="Normal"  name="track_normal"><label for="Normal">Normal</label><br>
+				<input type="checkbox" id="Adv"     name="track_adv"><label for="Adv">Adv</label><br>
+				<input type="checkbox" id="AP"      name="track_ap"><label for="AP">AP</label><br>
+				</fieldset>
+				&nbsp; <br>
+				&nbsp; <br>
+				&nbsp; <br>
+				&nbsp; <br>
+				&nbsp; <br>
+				&nbsp; <br>
+				&nbsp; <br>
+			</form>
+		</td>
+        <!-- QUESTION SECTION -->
+		<td bgcolor="lightgreen" valign="top" height="50%">
+			<table title="questions" id="questions">
+				<tr><td>Questions</td></tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+        <!-- ANSWER SECTION -->
+		<td bgcolor="lightgreen" valign="top" height="50%">
+			<table title="answers" id="answers">
+				<tr><td>Answers</td></tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+
+<script type="text/javascript">
+// This script section is called when the submot button is clicked.
+// It will create a single text string in JSON format of the selected filters (filterData)
+// and POST the data to the fqaMain.py program.  The Python program will evaluate the filter
+// info and build the HTML data to be displayed in the "Questions" section of the questions table.
+    function submitSearch() {
+        var checkboxFilters = $('#filters').serializeArray();
+        // Append a final hash named "filterString" holding the text filters
+        checkboxFilters.push({'name': 'filterString', 'value': $('#searchFilter').val()})
+        // Create a JSON structure of the entire filter info
+		var filterData = JSON.stringify(checkboxFilters);
+        console.log(filterData);  // Log to the HTML console for debugging purposes
+
+        // Submit the search operation to the main Python code.
+          $.ajax({
+            contentType: "application/json",
+            method: 'POST',
+            url: '/submitSearch',
+            data: filterData,
+ 			dataType: "json",
+          }).done(function(data) {
+          // The return of the Submit Python code will be a series of 
+          // HTML table "tr" and "td" commands to populate the questions section.
+          //console.log(data.questions)
+          document.getElementById("questions").innerHTML = data.questions;
+        });
+    }
+  </script>
+
+</body>
+</html>

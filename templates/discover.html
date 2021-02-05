@@ -1,0 +1,38 @@
+<!--loreal-->
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="/static/stylesheet.css"></link>
+
+		<title> 
+			mySharingBeauty
+		</title>
+ 	</head>
+ <body>
+
+{% if current_user.is_authenticated %}
+
+Hello {{ current_user.first_name }}
+
+<a href="/logout">Click to logout</a>
+
+{% endif %}
+<div>
+	<ul>
+  		<li><a href="/">Home</a></li>
+  		<li><a href="/discover">Discover</a></li>
+  		<li><a href="/">Profile</a></li>
+  		<li><a href="/">Earn</a></li>
+  		<li><a href="/signupform">Signup</a></li>
+	</ul>
+</div>
+
+
+{% if not current_user.is_authenticated %}
+		<div id="login"><a href="/loginform">Login</a></div>
+{% endif %}
+	<h6> mySharingBeauty by Garnier </h6>
+
+<p>Welcome to the discover page</p>
+
+ </body>
+</html>

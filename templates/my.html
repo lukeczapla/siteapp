@@ -1,0 +1,63 @@
+{% extends "bootstrap/base.html" %}
+{{ super() }}
+{% block title %}Template{% endblock %}
+{% block navbar %}
+
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="container"><div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle Navigation</span></button>
+  <span class="icon-bar"></span><a class="navbar-brand" href="/">About Us</a><a class="navbar-brand" href="/demo">Demonstration</a></div></div>
+
+</div>
+
+{% endblock %}
+
+
+{% block content %}
+<!-- this was a test of embedding AngularJS tags
+{% raw %}
+    <ul>
+    {% for item in seq %}
+        <li>{{ item }}</li>
+    {% endfor %}
+    </ul>
+{% endraw %}
+-->
+<h1>Our Example Website</h1>
+<a href="http://google.com">Get out of this web site</a>
+<div id="classinfo">
+<select id="mylist">
+  <option value=9>9th Grade</option>
+  <option value=10>10th Grade</option>
+  <option value=11>11th Grade</option>
+  <option value=12>12th Grade</option>
+</select>
+<input type="text" placeholder="My name" id="name"></input>
+<textarea rows="10" cols="80" id="refoutput"></textarea>
+<button onclick="submit()">Submit</button>  
+
+<script>
+  function submit() {
+    var data = {"user": "Mike"};
+    var req = {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      url: "/posttest",
+      method: "POST",
+      data: JSON.stringify(data),
+      dataType: "json"
+    }
+
+    $.ajax(req).done(function(response) {
+      console.log(response.user);
+    }).error(function(response) {
+     console.log(response);
+    })
+  };
+</script>
+
+{% endblock %}
+
+
